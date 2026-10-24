@@ -527,6 +527,21 @@ impl KfxImporter {
             }
         }
 
+        // document_data ($538) carries the book's reading direction.
+        if let Some(loc) = self
+            .entities
+            .iter()
+            .find(|e| e.type_id == KfxSymbol::DocumentData as u32)
+            .copied()
+            && let Ok(elem) = self.parse_entity_ion(loc)
+            && let Some(fields) = elem.as_struct()
+            && let Some(dir) =
+                get_field(fields, sym!(Direction)).and_then(|v| self.get_symbol_text(v))
+            && dir == "rtl"
+        {
+            self.metadata.page_progression_direction = Some("rtl".to_string());
+        }
+
         Ok(())
     }
 

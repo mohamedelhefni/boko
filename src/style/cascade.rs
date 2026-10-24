@@ -61,6 +61,7 @@ pub(crate) fn inherit_from_parent(parent: &ComputedStyle) -> ComputedStyle {
         word_spacing: parent.word_spacing,
         text_transform: parent.text_transform,
         hyphens: parent.hyphens,
+        direction: parent.direction,
         // Text decoration (inherited in some contexts)
         text_decoration_underline: parent.text_decoration_underline,
         text_decoration_line_through: parent.text_decoration_line_through,
@@ -533,6 +534,7 @@ fn apply_declaration(style: &mut ComputedStyle, decl: &Declaration) {
         Declaration::WordSpacing(l) => style.word_spacing = *l,
         Declaration::TextTransform(t) => style.text_transform = *t,
         Declaration::Hyphens(h) => style.hyphens = *h,
+        Declaration::Direction(d) => style.direction = *d,
         Declaration::WhiteSpace(ws) => style.white_space = *ws,
         Declaration::VerticalAlign(v) => style.vertical_align = *v,
 

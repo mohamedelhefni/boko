@@ -102,6 +102,36 @@ pub struct Metadata {
     pub page_progression_direction: Option<String>,
 }
 
+impl Metadata {
+    /// Whether the book reads right-to-left: the spine's
+    /// `page-progression-direction` when set, else the language (Arabic,
+    /// Hebrew, Persian, Urdu, ...), since many RTL EPUB 2 books omit it.
+    pub fn is_rtl(&self) -> bool {
+        match self.page_progression_direction.as_deref() {
+            Some("rtl") => true,
+            Some("ltr") => false,
+            _ => {
+                let primary = self.language.split(['-', '_']).next().unwrap_or("");
+                matches!(
+                    primary.to_ascii_lowercase().as_str(),
+                    "ar" | "arc"
+                        | "ckb"
+                        | "dv"
+                        | "fa"
+                        | "he"
+                        | "iw"
+                        | "ku"
+                        | "ps"
+                        | "sd"
+                        | "ug"
+                        | "ur"
+                        | "yi"
+                )
+            }
+        }
+    }
+}
+
 /// A table of contents entry (hierarchical)
 ///
 /// Built from the EPUB 3 nav document or EPUB 2 NCX (or the equivalent

@@ -814,6 +814,10 @@ impl Kf8Builder {
             let primary = self.ctx.metadata.language.split('-').next().unwrap_or("en");
             records.push((524, primary.as_bytes().to_vec()));
         }
+        // Page-progression direction (527): Kindle turns pages right-to-left.
+        if self.ctx.metadata.is_rtl() {
+            records.push((527, b"rtl".to_vec()));
+        }
 
         // KF8 housekeeping fields (calibre emits all of these on every book;
         // omitting them is correlated with Kindle refusing to open the file).

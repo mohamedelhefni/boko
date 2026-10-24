@@ -6,9 +6,9 @@
 use cssparser::Parser;
 
 use crate::style::properties::{
-    BorderCollapse, BorderStyle, BoxSizing, BreakValue, Clear, DecorationStyle, Display, Float,
-    FontStyle, FontVariant, Hyphens, ListStylePosition, ListStyleType, OverflowWrap, TextAlign,
-    TextTransform, VerticalAlign, Visibility, WhiteSpace, WordBreak,
+    BorderCollapse, BorderStyle, BoxSizing, BreakValue, Clear, DecorationStyle, Direction, Display,
+    Float, FontStyle, FontVariant, Hyphens, ListStylePosition, ListStyleType, OverflowWrap,
+    TextAlign, TextTransform, VerticalAlign, Visibility, WhiteSpace, WordBreak,
 };
 
 use crate::style::Declaration;
@@ -32,6 +32,7 @@ keyword_parser!(parse_font_variant, FontVariant);
 keyword_parser!(parse_text_align, TextAlign);
 keyword_parser!(parse_text_transform, TextTransform);
 keyword_parser!(parse_hyphens, Hyphens);
+keyword_parser!(parse_direction, Direction);
 keyword_parser!(parse_white_space, WhiteSpace);
 keyword_parser!(parse_decoration_style, DecorationStyle);
 keyword_parser!(parse_display, Display);
